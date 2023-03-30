@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  stages {
+    stage('Check requirements') {
+      steps {
+        script {
+          def requirements = sh(returnStdout: true, script: 'pip freeze | grep requests')
+          if (requirements.contains('requests')) {
+            echo 'Requirements already installed'
+          } else {
+            echo 'Installing requirements'
+            sh 'pip install requests'
+          }
+        }
+      }
+    stage('Pre Checks Before Deployment') {
+      steps {
+        sh 'echo "----------Stage 1 is Started----------"'
+        sh 'python3 show interface.py'
+        sh 'echo "----------Stage 1 is Finished----------"'
+      }
+  }
+    
+}
+
