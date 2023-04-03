@@ -1,16 +1,9 @@
 import requests
 import json
-
-"""
-Modify these please
-"""
-#For NXAPI to authenticate the client using client certificate, set 'client_cert_auth' to True.
-#For basic authentication using username & pwd, set 'client_cert_auth' to False.
+from pprint import pprint
 
 switchuser='admin'
 switchpassword='Lock&Key()19'
-
-
 url='https://172.26.21.101/ins'
 myheaders={'content-type':'application/json-rpc'}
 payload=[
@@ -26,4 +19,5 @@ payload=[
 ]
 
 response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword),verify=False).json()
-print (response)
+print(response)
+print(response['result']['body']['TABLE_interface']['ROW_interface']['admin_state'])
